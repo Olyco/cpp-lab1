@@ -23,49 +23,22 @@ Solution QuadEquation::Solver() const {
 				solution.numOfRoots = 0; //No roots
 		}
 		else {
-			if (C == 0)
-				x = 0;
-			else
-				x = -C / B;
+			x = -C / B;
 			solution.numOfRoots = 1;
 		}
 	}
 	else{
-		if (B == 0){
-			if (C == 0){
-				x = 0;
-				solution.numOfRoots = 1;
-			}
-			else{
-				if (A < 0) {
-					x1 = sqrt(-C / A);
-					x2 = -sqrt(-C / A);
-					solution.numOfRoots = 2;
-				}
-				else
-					solution.numOfRoots = 0; //x^2 < 0
-			}
+		double D = Discriminant();
+		if (D < 0)
+			solution.numOfRoots = 0;
+		else if (D == 0){
+			solution.numOfRoots = 1;
+			x = -B / (2 * A);
 		}
 		else{
-			if (C == 0){
-				x1 = 0;
-				x2 = -B / A;
-				solution.numOfRoots = 2;
-			}
-			else{
-				double D = Discriminant();
-				if (D < 0)
-					solution.numOfRoots = 0;
-				else if (D == 0){
-					solution.numOfRoots = 1;
-					x = -B / 2;
-				}
-				else{
-					solution.numOfRoots = 2;
-					x1 = (-B + sqrt(D)) / (2 * A);
-					x2 = (-B - sqrt(D)) / (2 * A);
-				}
-			}
+			solution.numOfRoots = 2;
+			x1 = (-B + sqrt(D)) / (2 * A);
+			x2 = (-B - sqrt(D)) / (2 * A);
 		}
 	}
 	if (solution.numOfRoots != 0) { 
